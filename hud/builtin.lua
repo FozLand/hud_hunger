@@ -76,6 +76,14 @@ if damage_enabled then
 				type = "breath",
 				func = function(player)
 					local air = player:get_breath()
+					if not air then
+						local pname = player:get_player_name() or "nil"
+						local pos = player:get_pos()
+						local spos = pos and minetest.pos_to_string(pos) or "nil"
+						minetest.log("error", "[hud_hunger] "..pname.." has nil "..
+							"breath at "..spos)
+						return
+					end
 					if air > 10 then
 						air = 0
 					end
